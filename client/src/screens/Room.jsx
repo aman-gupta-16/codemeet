@@ -8,6 +8,7 @@ import { useCallback } from "react";
 
 const RoomPage = () => {
   const socket = useSocketStore((state) => state.socket);
+  const disconnectSocket = useSocketStore((state) => state.disconnectSocket);
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
@@ -102,9 +103,11 @@ const RoomPage = () => {
       socket.off("call:accepted", handleCallAccepted);
       socket.off("peer:nego:needed", handleNegoNeedIncomming);
       socket.off("peer:nego:final", handleNegoNeedFinal);
+      disconnectSocket();
     };
   }, [
     socket,
+    disconnectSocket,
     handleUserJoined,
     handleIncommingCall,
     handleCallAccepted,
