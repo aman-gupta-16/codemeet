@@ -103,7 +103,8 @@ const RoomPage = () => {
       socket.off("call:accepted", handleCallAccepted);
       socket.off("peer:nego:needed", handleNegoNeedIncomming);
       socket.off("peer:nego:final", handleNegoNeedFinal);
-      disconnectSocket();
+      socket.disconnect();
+      console.log(socket,"after disconnect")
     };
   }, [
     socket,
